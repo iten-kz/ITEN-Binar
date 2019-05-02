@@ -1,0 +1,228 @@
+﻿<UserControl x:Class="BinarApp.Controls.MainPageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BinarApp.Controls"
+             xmlns:WindowsPresentation="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
+             mc:Ignorable="d" 
+             MinWidth="800"
+             MinHeight="300"
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/CustomStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid x:Name="layoutMain">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width ="*" />
+            <ColumnDefinition Width ="*" />
+        </Grid.ColumnDefinitions>
+
+        <Image Name="imgStreamer"
+            Grid.Column="0"
+            Grid.Row="0"    
+            Margin="5"
+            Stretch="UniformToFill"
+            Source="/Media/Images/binar3.JPG"/>
+   
+        <Grid Name="layouRightPanel" Grid.Column="1" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--<MediaElement x:Name="meStreamer"
+                            Grid.Column="0"
+                            Grid.Row="0" />-->
+
+            <Grid Margin="5" Grid.Column="0" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width ="*" />
+                    <ColumnDefinition Width ="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Name="lblWarning"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    BorderThickness="1" 
+                    BorderBrush="Black"       
+                    Background="LightGray"
+                    Content=""
+                    FontSize="12" FontWeight="Bold"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"/>
+
+                <Image Name="imgMain" 
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Stretch="UniformToFill"
+                    Source="/Media/Images/binar1.JPG"/>
+                
+                <Label Name="lblMainPlateNumber"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    BorderThickness="1" 
+                    BorderBrush="Black"       
+                    Background="LightGreen"
+                    FontSize="16" FontWeight="Bold"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"/>
+            </Grid>
+
+            <WindowsPresentation:GMapControl x:Name="mapControl" 
+                            MouseWheelZoomEnabled="True" 
+                            MaxZoom="20" Zoom="12" 
+                            ShowTileGridLines="False"
+                            Grid.Column="0"
+                            Grid.Row="1" 
+                            Margin="5"
+                            BorderThickness="1"
+                            BorderBrush="Black"/>
+
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width ="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Style="{StaticResource CustomButton}" 
+                    x:Name="btnStartMainMode" 
+                    Content="Патрулирование" 
+                    Grid.Column="0" 
+                    Grid.Row="0" 
+                    Margin="5"/>
+
+                <Button Style="{StaticResource CustomButton}"
+                        x:Name="btnStartCounterMode" 
+                        Content="Встречный режим" 
+                        Grid.Column="0" 
+                        Grid.Row="1" 
+                        Margin="5"/>
+                
+                <Button Style="{StaticResource CustomButton}"
+                        x:Name="btnStartNightMode" 
+                        Content="Ночной режим" 
+                        Grid.Column="0" 
+                        Grid.Row="2" 
+                        Margin="5"/>
+            </Grid>
+
+            <Grid Name="layoutInfo" Grid.Column="1" Grid.Row="1" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width ="*" />
+                    <ColumnDefinition Width ="2*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Name="lblDate"
+                                Content="11:52:12" 
+                                FontSize="16" FontWeight="Bold"
+                                Grid.Column="0" 
+                                Grid.Row="0" 
+                                VerticalAlignment="Top" />
+                
+                <Label Name="lblTime"
+                                Content="11:52:12" 
+                                FontSize="18" FontWeight="Bold"
+                                Grid.Column="0" 
+                                Grid.Row="1" 
+                                VerticalAlignment="Top" />
+
+                <!--<Label Name="lblLongitude"
+                                Content="N 054.77732" 
+                                Grid.Column="0" 
+                                Grid.Row="1" 
+                                FontSize="14"
+                                VerticalAlignment="Top" />
+                <Label Name="lblLatitude"
+                                Content="E 032.31427" 
+                                Grid.Column="0" 
+                                Grid.Row="2" 
+                                FontSize="14"
+                                VerticalAlignment="Top" />-->
+                <StackPanel Background="#FFF5C318"
+                            Grid.Column="1" 
+                            Grid.Row="0" 
+                            Grid.RowSpan="3">
+                    <Label Name="lblSpeed"
+                                   Content="0"                              
+                                   FontSize="35" FontWeight="Bold"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Center"/>
+                    <Label Name="lblPlateNumber"
+                                   Content="0"                                                                   
+                                   FontSize="30" FontWeight="Bold"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Center"/>
+                </StackPanel>
+
+            </Grid>
+        </Grid>
+
+        <ScrollViewer x:Name="svHistory"
+                        HorizontalScrollBarVisibility="Auto" 
+                        VerticalScrollBarVisibility="Hidden" 
+                        Grid.Column="0"
+                        Grid.Row="1"       
+                        Grid.ColumnSpan="2">
+            <ListBox x:Name="listImagesRibbon" HorizontalContentAlignment="Stretch" SelectionChanged="listImagesRibbon_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="25" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width ="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" BorderThickness="1" BorderBrush="Black" Background="{Binding WarningColor, Mode=OneWay}"
+                                Content="{Binding WarningText, Mode=OneWay}" 
+                                FontSize="10" FontWeight="Bold" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"/>
+                            <Image Grid.Row="1" Source="{Binding Image, Mode=OneWay}" Width="120" Stretch="UniformToFill" />
+                            <Label Grid.Row="2" Content="{Binding PlateNumber, Mode=OneWay}" BorderThickness="1" 
+                                BorderBrush="Black" Background="LightGreen" FontSize="10" FontWeight="Bold"
+                                VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </ScrollViewer>
+        
+    </Grid>
+
+</UserControl>

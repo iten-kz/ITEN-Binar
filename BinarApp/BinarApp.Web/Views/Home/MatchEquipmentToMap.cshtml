@@ -1,0 +1,214 @@
+﻿@{
+    ViewBag.Title = "Mapping";
+}
+@using BinarApp.Core.POCO;
+@using System.Configuration;
+
+<div class="row">
+    <div class="col-md-4">
+        @(Html.DevExtreme().DataGrid<Equipment>()
+            .DataSource(ds => ds
+                .OData()
+                .Version(4)
+                .Url(ConfigurationManager.AppSettings["BinarAppApi"] + "/odata/Equipments")
+                .Key("Id"))
+            .ShowBorders(true)
+            .ShowRowLines(true)
+            .OnRowClick("equipmentRowSelected")
+            .Columns(cols =>
+            {
+                cols.AddFor(c => c.Id)
+                    .Visible(false);
+
+                cols.AddFor(c => c.Name);
+
+                cols.AddFor(c => c.Description);
+
+                cols.AddFor(c => c.Address);
+
+                cols.AddFor(c => c.GeoJson)
+                    .Visible(false);
+            })
+        )
+    </div>
+
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Map
+            </div>
+            <div class="panel-body">
+                <div id="mapid"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+    var selectedEquipment = {};
+    
+    function addToLocation(e) {
+        locationList.push([e.latlng.lat, e.latlng.lng]);
+        drawLocations();
+    }
+
+    function clearLocations() {
+        locationList = [];
+
+        claerMap();
+    }
+
+    function claerMap() {
+        for (i in map._layers) {
+            if (map._layers[i].options.format == undefined) {
+                try {
+                    map.removeLayer(map._layers[i]);
+                } catch (e) {
+                    console.log("problem with " + e + map._layers[i]);
+                }
+
+            }
+        }
+    }
+
+    function drawLocations() {
+
+        claerMap();
+
+        console.log(locationList);
+
+        L.polygon(locationList)
+            .addTo(map);
+    }
+
+    var locationList = [];
+
+    var map = L.map('mapid').setView([43.26, 76.89], 13);
+
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidW5yZWFsc3BoIiwiYSI6ImNqcDFjbDVtMDJ5MHEza285ZXRzd21zam4ifQ.HoU3Xy6dQlQxLyGhHHiUAA', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoidW5yZWFsc3BoIiwiYSI6ImNqcDFjbDVtMDJ5MHEza285ZXRzd21zam4ifQ.HoU3Xy6dQlQxLyGhHHiUAA'
+    }).addTo(map);
+
+    //Initialise the FeatureGroup to store editable layers
+
+    var editableLayers = new L.FeatureGroup();
+    map.addLayer(editableLayers);
+
+    var drawPluginOptions = {
+        position: 'topright',
+        draw: {
+            polygon: {
+                allowIntersection: false, // Restricts shapes to simple polygons
+                drawError: {
+                    //color: '#e1e100', // Color the shape will turn when intersects
+                    message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect
+                },
+                shapeOptions: {
+                    //color: '#97009c'
+                }
+            },
+            // disable toolbar item by setting it to false
+            circle: false, // Turns off this drawing tool
+            rectangle: false,
+            marker: false,
+        },
+        edit: {
+            featureGroup: editableLayers, //REQUIRED!!
+            edit: true,
+            delete: true
+        }
+    };
+
+    // Initialise the draw control and pass it the FeatureGroup of editable layers
+    var drawControl = new L.Control.Draw(drawPluginOptions);
+    map.addControl(drawControl);
+
+    var editableLayers = new L.FeatureGroup();
+    map.addLayer(editableLayers);
+
+    map.on('draw:created', function (e) {
+        var type = e.layerType,
+            layer = e.layer;
+
+        if (type === 'marker') {
+            layer.bindPopup('A popup!');
+        }
+
+        editableLayers.addLayer(layer);
+        
+        if (e.layerType !== 'polygon')
+            return;
+        
+        var polygon = layer.editing.latlngs[0][0];
+
+        saveLayer(polygon);
+        
+    });
+
+    function saveLayer(polygon) {
+
+        console.log('saveLayer');
+
+        if (selectedEquipment == null)
+            return;
+
+        var json = JSON.stringify(polygon);
+
+        var url = '@ConfigurationManager.AppSettings["BinarAppApi"]/odata/Equipments(' + selectedEquipment.Id + ')';
+
+        data = JSON.stringify({
+            GeoJson: json
+        });
+
+        console.log('url: ', url);
+
+        $.ajax({
+            url: url,
+            type: 'PATCH',
+            contentType: 'application/json',
+            data: data,
+            success: function (res) {
+                console.log(res);
+            }
+        });
+
+    }
+
+    function convertGeoJsonToLayer(coordinates) {
+        return [{
+            "type": "feature",
+            "geometry": {
+                "type": "polygon",
+                "coordinates": coordinates
+            }
+        }];
+    }
+
+    function equipmentRowSelected(e) {
+        selectedEquipment = e.data;
+        console.log('equipmentRowSelected', selectedEquipment);
+
+        for (var index in editableLayers._layers) {
+            var item = editableLayers._layers[index];
+            editableLayers.removeLayer(item);
+        }
+        
+        if (selectedEquipment.GeoJson == null)
+            return;
+
+        var polygon = JSON.parse(selectedEquipment.GeoJson);
+        
+        var convertedLayer = convertGeoJsonToLayer(polygon);
+
+        convertedLayer.forEach(function (state) {
+            var polygon = L.polygon(state.geometry.coordinates).addTo(map);
+        });
+    }
+    
+</script>

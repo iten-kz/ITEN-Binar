@@ -1,0 +1,201 @@
+﻿<UserControl x:Class="BinarApp.Controls.SearchControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"              
+             xmlns:local="clr-namespace:BinarApp.Controls" 
+             mc:Ignorable="d" 
+             MinWidth="800"
+             MinHeight="300"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/CustomStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="layoutMain">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width ="*" />
+            <ColumnDefinition Width ="*" />
+            <ColumnDefinition Width ="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="layoutSearchInput"
+             Margin="5"
+             Grid.Column="0"
+             Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width ="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label FontSize="14" Grid.Column="0" Grid.Row="0">Регистрационный знак:</Label>
+            <TextBox Name="txtQuery" Grid.Column="0" Grid.Row="1" FontSize="24" TextAlignment="Center" />
+        </Grid>
+
+        <Button Style="{StaticResource CustomButton}" 
+            x:Name="btnFind" 
+            Content="Найти" 
+            Grid.Column="1" 
+            Grid.Row="0" 
+            Margin="5" />
+
+        <Popup Name="FixationsPopup"
+               Placement="Center"
+               AllowsTransparency="false">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width ="*" />
+                </Grid.ColumnDefinitions>
+
+                <DataGrid Name="dgFixations" 
+                          AutoGenerateColumns="False" 
+                          LoadingRow="DataGrid_LoadingRow" 
+                          AlternatingRowBackground="LightYellow"
+                          CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True"
+                          Grid.Column="0" 
+                          Grid.Row="0">
+                    
+                    <DataGrid.RowHeaderStyle>
+                        <Style TargetType="{x:Type DataGridRowHeader}">
+                            <Setter Property="FontSize" Value="20"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Foreground" Value="#FF474747"/>
+                        </Style>
+                    </DataGrid.RowHeaderStyle>
+                    
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" />
+                        <DataGridTextColumn Header="Гос.номер" Binding="{Binding GRNZ}" />
+                        <DataGridTextColumn Header="Дата" Binding="{Binding FixationDate}" />
+                        <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
+                    </DataGrid.Columns>
+                    <!--<DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Description}" Margin="10" />
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>-->
+                </DataGrid>
+
+                <Button Style="{StaticResource CustomButton}" 
+                        Grid.Column="0" 
+                        Grid.Row="1"
+                        Name="btnHidePopup" 
+                        Click="btnHidePopup_Click">Закрыть</Button>
+            </Grid>
+        </Popup>
+
+        <Button Style="{StaticResource CustomButton}" 
+                x:Name="btnClear" 
+                Content="Очистить" 
+                Grid.Column="2" 
+                Grid.Row="0" 
+                Margin="5"
+                Click="btnClear_Click"/>
+
+        <Grid x:Name="layoutLetters" 
+             Margin="25"
+             Grid.ColumnSpan="3"
+             Grid.Column="0"
+             Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="btnLetter_A" Margin="5" Grid.Column="0" Grid.Row="0" Content="A"  Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_B" Margin="5" Grid.Column="1" Grid.Row="0" Content="B"  Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_C" Margin="5" Grid.Column="2" Grid.Row="0" Content="C"  Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_D" Margin="5" Grid.Column="3" Grid.Row="0" Content="D"  Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_E" Margin="5" Grid.Column="4" Grid.Row="0" Content="E"  Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_F" Margin="5" Grid.Column="5" Grid.Row="0" Content="F"  Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_G" Margin="5" Grid.Column="6" Grid.Row="0" Content="G"  Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_H" Margin="5" Grid.Column="7" Grid.Row="0" Content="H"  Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_I" Margin="5" Grid.Column="8" Grid.Row="0" Content="I"  Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_J" Margin="5" Grid.Column="9" Grid.Row="0" Content="J"  Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_K" Margin="5" Grid.Column="10" Grid.Row="0" Content="K" Style="{StaticResource CustomButton}"  Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_L" Margin="5" Grid.Column="11" Grid.Row="0" Content="L" Style="{StaticResource CustomButton}"  Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_M" Margin="5" Grid.Column="12" Grid.Row="0" Content="M" Style="{StaticResource CustomButton}"  Click="btnLetter_Click"/>
+
+            <Button x:Name="btnLetter_N" Margin="5" Grid.Column="0" Grid.Row="1" Content="N"  Style="{StaticResource CustomButton}" FontWeight="Bold" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_O" Margin="5" Grid.Column="1" Grid.Row="1" Content="O"  Style="{StaticResource CustomButton}" FontWeight="Bold" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_P" Margin="5" Grid.Column="2" Grid.Row="1" Content="P"  Style="{StaticResource CustomButton}" FontWeight="Bold" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_Q" Margin="5" Grid.Column="3" Grid.Row="1" Content="Q"  Style="{StaticResource CustomButton}" FontWeight="Bold" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_R" Margin="5" Grid.Column="4" Grid.Row="1" Content="R"  Style="{StaticResource CustomButton}" FontWeight="Bold" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_S" Margin="5" Grid.Column="5" Grid.Row="1" Content="S"  Style="{StaticResource CustomButton}" FontWeight="Bold" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_T" Margin="5" Grid.Column="6" Grid.Row="1" Content="T"  Style="{StaticResource CustomButton}" FontWeight="Bold" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_U" Margin="5" Grid.Column="7" Grid.Row="1" Content="U"  Style="{StaticResource CustomButton}" FontWeight="Bold" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_V" Margin="5" Grid.Column="8" Grid.Row="1" Content="V"  Style="{StaticResource CustomButton}" FontWeight="Bold" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_W" Margin="5" Grid.Column="9" Grid.Row="1" Content="W"  Style="{StaticResource CustomButton}" FontWeight="Bold" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_X" Margin="5" Grid.Column="10" Grid.Row="1" Content="X" Style="{StaticResource CustomButton}"  FontWeight="Bold" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_Y" Margin="5" Grid.Column="11" Grid.Row="1" Content="Y" Style="{StaticResource CustomButton}"  FontWeight="Bold" Click="btnLetter_Click"/>
+            <Button x:Name="btnLetter_Z" Margin="5" Grid.Column="12" Grid.Row="1" Content="Z" Style="{StaticResource CustomButton}"  FontWeight="Bold" Click="btnLetter_Click"/>
+
+        </Grid>
+
+        <Grid x:Name="layoutNumbers"
+             Margin="10"
+             Grid.ColumnSpan="3"
+             Grid.Column="0"
+             Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="btnNum_0" Margin="3" Grid.Column="0" Content="0" Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnNum_1" Margin="3" Grid.Column="1" Content="1" Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnNum_2" Margin="3" Grid.Column="2" Content="2" Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnNum_3" Margin="3" Grid.Column="3" Content="3" Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnNum_4" Margin="3" Grid.Column="4" Content="4" Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnNum_5" Margin="3" Grid.Column="5" Content="5" Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnNum_6" Margin="3" Grid.Column="6" Content="6" Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnNum_7" Margin="3" Grid.Column="7" Content="7" Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnNum_8" Margin="3" Grid.Column="8" Content="8" Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+            <Button x:Name="btnNum_9" Margin="3" Grid.Column="9" Content="9" Style="{StaticResource CustomButton}" Click="btnLetter_Click"/>
+        </Grid>
+
+    </Grid>
+</UserControl>

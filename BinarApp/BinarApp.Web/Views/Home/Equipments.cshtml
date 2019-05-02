@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Equipments";
+}
+@using BinarApp.Core.POCO;
+@using System.Configuration;
+
+<h2>Equipments</h2>
+
+@(Html.DevExtreme().DataGrid<Equipment>()
+    .DataSource(ds => ds
+        .OData()
+        .Version(4)
+        .Url(ConfigurationManager.AppSettings["BinarAppApi"] + "/odata/Equipments")
+        .Key("Id"))
+    .ShowBorders(true)
+    .ShowRowLines(true)
+    .Editing(ed => ed
+        .AllowAdding(true)
+        .AllowUpdating(true)
+        .AllowDeleting(true)
+        .Form(f => f.ColCount(1))
+        .Mode(GridEditMode.Popup)
+        .Form(f => f
+            .Items(items => 
+            {
+                items.AddSimpleFor(c => c.Id);
+                items.AddSimpleFor(c => c.Name);
+                items.AddSimpleFor(c => c.Description);
+                items.AddSimpleFor(c => c.Address);
+            })))
+    .Columns(cols =>
+    {
+        cols.AddFor(c => c.Id)
+            .Width(50);
+
+        cols.AddFor(c => c.Name);
+        cols.AddFor(c => c.Description);
+        cols.AddFor(c => c.Address);
+        
+        cols.AddFor(c => c.DayImage)
+            .Caption("День")
+            .CellTemplate(@<text><img src="data:image/png;base64, <%= value %>" /></text>);
+
+        cols.AddFor(c => c.Id)
+            .Width(150)
+            .CellTemplate(@<text>
+                <a href="/Home/UploadEquipment/<%= value %>?timeFlag=0">Изменить (день)</a>
+            </text>);
+
+        cols.AddFor(c => c.NightImage)
+            .Caption("Ночь")
+            .CellTemplate(@<text><img src="data:image/png;base64, <%= value %>" /></text>);
+
+        cols.AddFor(c => c.Id)
+            .Width(150)
+            .CellTemplate(@<text>
+                <a href="/Home/UploadEquipment/<%= value %>?timeFlag=1">Изменить (Ночь)</a>
+            </text>);
+
+    })
+)
+

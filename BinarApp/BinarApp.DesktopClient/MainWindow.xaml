@@ -1,0 +1,65 @@
+﻿<Controls:MetroWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BinarApp.DesktopClient"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:AppComponents="clr-namespace:BinarApp.DesktopClient.Views.Components"
+        xmlns:AppPages="clr-namespace:BinarApp.DesktopClient.Views.Pages"
+        xmlns:Converters="clr-namespace:BinarApp.DesktopClient.Converters" x:Class="BinarApp.DesktopClient.MainWindow"
+        mc:Ignorable="d"
+        d:DesignHeight="768" 
+        ShowTitleBar="True"
+        ShowIconOnTitleBar="True"
+        d:DesignWidth="1024" 
+        WindowState="Maximized" 
+        Title="{Binding Main.ApplicationTitle}"
+        Loaded="MetroWindow_Loaded"
+        Icon="Resources/icons8-speed-64.png">
+   
+    <Controls:MetroWindow.Resources>
+        <Converters:BooleanInvertionConverter x:Key="BooleanInvertionConverter"/>
+        <Converters:BoolToVisibleConverter x:Key="BoolToVisibleConverter"/>
+    </Controls:MetroWindow.Resources>
+    <Controls:MetroWindow.DataContext>
+        <Binding Source="{StaticResource Locator}"/>
+    </Controls:MetroWindow.DataContext>
+    
+    <!-- Title="{Binding Main.ApplicationTitle}" -->
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                BorderBrush="DarkGray" 
+                BorderThickness="1" 
+                CornerRadius="8,8,8,8"
+                Margin="5"
+                Visibility="{Binding Main.IsPlateFormOpen, Converter={StaticResource BooleanInvertionConverter}}">
+            <Grid>
+                <AppComponents:TopNavigationComponentView />
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1"
+              Visibility="{Binding Main.IsPlateFormOpen, Converter={StaticResource BooleanInvertionConverter}}">
+            <Frame Content="{Binding Main.CurrentPage}" NavigationUIVisibility="Hidden"></Frame>
+            <!--<AppPages:MainPageView />-->
+        </Grid>
+        
+        <Grid Grid.Row="1"
+               Visibility="{Binding Main.IsPlateFormOpen, Converter={StaticResource BoolToVisibleConverter}}">
+            <AppComponents:PlateNumberForm Width="450"
+                                   Height="350"/>
+        </Grid>
+        
+        <Grid Grid.Row="2" Background="#d5d4d0"
+              Visibility="{Binding Main.IsPlateFormOpen, Converter={StaticResource BooleanInvertionConverter}}">
+            <AppComponents:StatusBarComponentView />
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

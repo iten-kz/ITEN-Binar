@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="BinarApp.DesktopClient.Views.Pages.FormPageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:res="clr-namespace:BinarApp.DesktopClient.Resources"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="800"
+             >
+    
+    <Grid DataContext="{Binding Source={StaticResource Locator}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" 
+                    BorderBrush="DarkGray" 
+                    BorderThickness="1" 
+                    CornerRadius="8,8,8,8"
+                    Margin="5">
+            <Grid Margin="10, 10, 10, 10">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <DockPanel Margin="0,0,0,10" Grid.Row="0">
+                    <Label Width="200" Content="{x:Static res:Resources.FormFirstName}"/>
+                    <TextBox Text="{Binding Main.FormPage.FirstName, Mode=TwoWay}"/>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,10" Grid.Row="1">
+                    <Label Width="200"  Content="{x:Static res:Resources.FormLastName}"/>
+                    <TextBox Text="{Binding Main.FormPage.LastName, Mode=TwoWay}"/>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,10" Grid.Row="2">
+                    <Label Width="200"  Content="{x:Static res:Resources.FormMiddleName}"/>
+                    <TextBox Text="{Binding Main.FormPage.MiddleName, Mode=TwoWay}"/>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,10" Grid.Row="3">
+                    <Label Width="200"  Content="{x:Static res:Resources.FormBirthDate}"/>
+                    <DatePicker FontSize="16" SelectedDateFormat="Short" SelectedDate="{Binding Main.FormPage.BirthDate, Mode=TwoWay}"  FirstDayOfWeek="Monday" />
+                </DockPanel>
+                <DockPanel Margin="0,0,0,10" Grid.Row="4">
+                    <Label Width="200"  Content="{x:Static res:Resources.FormGRNZ}"/>
+                    <TextBox Text="{Binding Main.FormPage.GRNZ, Mode=TwoWay}"/>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,10" Grid.Row="5">
+                    <Label Width="200"  Content="{x:Static res:Resources.FormSpeed}"/>
+                    <TextBox Text="{Binding Main.FormPage.Speed, Mode=TwoWay}"/>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,10" Grid.Row="6">
+                    <Label Width="200"  Content="{x:Static res:Resources.FormPenaltySum}"/>
+                    <TextBox Text="{Binding Main.FormPage.PenaltySum, Mode=TwoWay}"/>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,10" Grid.Row="7">
+                    <Label Width="200"  Content="{x:Static res:Resources.FormDescription}"/>
+                    <TextBox Text="{Binding Main.FormPage.Description, Mode=TwoWay}"/>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,10"  Grid.Row="9" HorizontalAlignment="Left">
+                    <Button Content="{x:Static res:Resources.FormSendButton}" Height="30" VerticalAlignment="Top" Click="Button_Click"/>
+                </DockPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

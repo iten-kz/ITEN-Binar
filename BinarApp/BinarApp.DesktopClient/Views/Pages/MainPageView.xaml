@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="BinarApp.DesktopClient.Views.Pages.MainPageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:AppPages="clr-namespace:BinarApp.DesktopClient.Views.Pages"
+             xmlns:AppComponents="clr-namespace:BinarApp.DesktopClient.Views.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{Binding Source={StaticResource Locator}}">
+    <Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.42*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" 
+                    BorderBrush="DarkGray" 
+                    BorderThickness="1" 
+                    CornerRadius="8,8,8,8"
+                    Margin="5">
+                <Grid>
+                    <AppComponents:IncidentCollectionComponentView />
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" 
+                    BorderBrush="DarkGray" 
+                    BorderThickness="1" 
+                    CornerRadius="8,8,8,8"
+                    Margin="5">
+                <Grid>
+                    <Label Margin="10" FontWeight="Bold">ВИДЕОЗАХВАТ</Label>
+                    <AppComponents:IncidentMonitoringComponentView />
+                </Grid>
+            </Border>
+          
+        </Grid>
+
+        <Controls:Flyout Header="{Binding Main.MainPageViewModel.IncidentSelected.FlayoutText}"
+                         Foreground="{Binding Main.MainPageViewModel.IncidentSelected.Status}"
+                         Position="Right" 
+                         Theme="Light" 
+                         Width="900" 
+                         BorderBrush="#aaa"
+                         BorderThickness="1"
+                         IsOpen="{Binding Main.MainPageViewModel.IsDetailOpen}"
+                         IsOpenChanged="Flyout_IsOpenChanged">
+            <Controls:Flyout.Effect>
+                <DropShadowEffect ShadowDepth="7" 
+                                  Opacity="0.25" 
+                                  Direction="180" />
+            </Controls:Flyout.Effect>
+            <Grid>
+                <AppPages:FormPageView Visibility="{Binding Main.MainPageViewModel.FormPageVisible}"></AppPages:FormPageView>
+                <AppComponents:IncidentItemComponentView   Visibility="{Binding Main.MainPageViewModel.IncedentItemVisible}"/>
+            </Grid>
+            
+        </Controls:Flyout>
+    </Grid>
+</UserControl>

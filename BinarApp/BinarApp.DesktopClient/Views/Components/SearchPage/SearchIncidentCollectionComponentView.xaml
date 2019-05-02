@@ -1,0 +1,98 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BinarApp.DesktopClient.Views.Components" 
+             xmlns:Converters="clr-namespace:BinarApp.DesktopClient.Converters"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:res="clr-namespace:BinarApp.DesktopClient.Resources"
+             xmlns:Custom="http://schemas.devexpress.com/winfx/2008/xaml/charts/rangecontrolclient" 
+             x:Class="BinarApp.DesktopClient.Views.Components.SearchPage.SearchIncidentCollectionComponentView"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/ListBoxStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Converters:BooleanInvertionConverter x:Key="BooleanInvertionConverter"/>
+            <Converters:BoolToVisibleConverter x:Key="BoolToVisibleConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="10" d:DataContext="{Binding Source={StaticResource Locator}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Margin="5 0 0 5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock FontWeight="Bold" Grid.Row="0" Margin="10 0 0 0"
+                           Text="{x:Static res:Resources.PlateNumberSearchLabel}"></TextBlock>
+                <TextBox
+                         Grid.Row="1" 
+                         FontSize="16"
+                         Margin="0, 0, 10, 0" 
+                         Text="{Binding Main.SearchPageViewModel.PlateNumberTextSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                </TextBox>
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="5 0 0 5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <DatePicker Grid.Row="0"
+                        FontSize="16"
+                        Margin="0, 0, 0, 0" 
+                        SelectedDateFormat="Short"
+                        SelectedDate="{Binding Main.SearchPageViewModel.DateTimeFilterFrom, Mode=TwoWay}" 
+                        FirstDayOfWeek="Monday" />
+
+                <DatePicker Grid.Row="1"
+                    FontSize="16"
+                    Margin="0, 0, 0, 0" 
+                    SelectedDateFormat="Short"
+                    SelectedDate="{Binding Main.SearchPageViewModel.DateTimeFilterTo, Mode=TwoWay}" 
+                    FirstDayOfWeek="Monday" />
+            </Grid>
+
+        </Grid>
+
+        <DataGrid Grid.Row="1" 
+                  FontSize="14"
+                  AlternatingRowBackground="LightGray"
+                  ItemsSource="{Binding Main.SearchPageViewModel.Incidents}" 
+                  SelectedItem="{Binding Main.SearchPageViewModel.IncidentSelected}"
+                  AutoGenerateColumns="False"
+                  Style="{StaticResource GridStyle}"
+                  Visibility="{Binding Main.SearchPageViewModel.IsCollectionDownloading, Converter={StaticResource BooleanInvertionConverter}}"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserResizeColumns="False" HorizontalContentAlignment="Stretch" HorizontalScrollBarVisibility="Hidden">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="{x:Static res:Resources.PlateNumberTable}" Binding="{Binding CarNumber, Mode=OneWay}" />
+                <DataGridTextColumn IsReadOnly="True" Header="{x:Static res:Resources.DateTable}" SortDirection="Ascending" Binding="{Binding DateTime, Mode=OneWay, StringFormat='dd.MM.yyyy hh:mm:ss'}" />
+                <DataGridTextColumn IsReadOnly="True" Header="{x:Static res:Resources.SpeedTable}" Binding="{Binding Speed, Mode=OneWay}" />
+                <DataGridTextColumn IsReadOnly="True" Header="{x:Static res:Resources.DescriptionTable}" Binding="{Binding Description, Mode=OneWay}" />
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <Grid Grid.Row="1" Visibility="{Binding Main.SearchPageViewModel.IsCollectionDownloading, Converter={StaticResource BoolToVisibleConverter}}">
+            <Controls:ProgressRing IsActive="True" />
+        </Grid>
+
+    </Grid>
+</UserControl>

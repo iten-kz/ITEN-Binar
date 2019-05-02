@@ -1,0 +1,198 @@
+﻿<Window x:Class="BinarApp.DecktopApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BinarApp.DecktopApplication"
+        xmlns:components="clr-namespace:BinarApp.DecktopApplication.Components"
+        xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        mc:Ignorable="d"
+        Title="Rapid v 0.3.5"
+        Height="450"
+        Width="800"
+        Initialized="Window_Initialized"
+        Icon="Resources/icons8-speed-64.png"
+        DataContext="{Binding Main, Source={StaticResource Locator}}" 
+        WindowState="Maximized" 
+        Closing="Window_Closing"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+
+            <materialDesign:Card Padding="10"
+                                 Margin="10"
+                                 Grid.Row="0" 
+                                 VerticalAlignment="Stretch">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <wpf:Map Name="mp_main"
+                             Grid.Row="0"
+                             Center="43.238949,76.889709"
+                             ZoomLevel="13"
+                             CredentialsProvider="AkXIXmY8KGzcOT2qgNXWk1Om_pRhe-9ZsyLZ07qmiPv6VWS7BWuZqYJXF5iEXTqz"/>
+
+                    <Grid Grid.Row="1" Margin="0, 12, 0, 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                               Style="{DynamicResource MaterialDesignCaptionTextBlock}">Парковка:</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="1"
+                               Style="{DynamicResource MaterialDesignBody2TextBlock}"
+                               Text="{Binding Settings.EquipmentName}"></TextBlock>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                               Style="{DynamicResource MaterialDesignCaptionTextBlock}">Долгота:</TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="1"
+                               Style="{DynamicResource MaterialDesignBody2TextBlock}"
+                               Text="{Binding Settings.Longitude}"></TextBlock>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0"
+                               Style="{DynamicResource MaterialDesignCaptionTextBlock}">Широта:</TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="1"
+                               Text="{Binding Settings.Latitude}"
+                               Style="{DynamicResource MaterialDesignBody2TextBlock}"></TextBlock>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0"
+                                   Style="{DynamicResource MaterialDesignCaptionTextBlock}">Отправка данных:</TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="1"
+                               Text="{Binding Settings.Sending}"
+                               Style="{DynamicResource MaterialDesignBody2TextBlock}"></TextBlock>
+
+                    </Grid>
+
+                </Grid>
+
+            </materialDesign:Card>
+        </Grid>
+
+
+
+        <Grid Grid.Column="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            
+            <materialDesign:Card Grid.Column="0"
+                                 Padding="10"
+                                 Margin="10"
+                                 VerticalAlignment="Stretch">
+                <DataGrid ItemsSource="{Binding PlateCollection}"
+                              AutoGenerateColumns="False"
+                              GridLinesVisibility="None"
+                              SelectedItem="{Binding CurrentPlate}"
+                              IsReadOnly="true">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Plate"
+                                            Binding="{Binding Plate}"
+                                            FontSize="20"
+                                            Width="*" />
+                        <DataGridTextColumn Header="Count"
+                                            Binding="{Binding Incidents.Count}"
+                                            FontSize="20"
+                                            Width="auto"
+                                            SortDirection="Descending"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Column="1"
+                                 Padding="10"
+                                 Margin="10"
+                                 VerticalAlignment="Stretch">
+
+                <DataGrid ItemsSource="{Binding CurrentPlate.Incidents}"
+                            AutoGenerateColumns="False"
+                            GridLinesVisibility="None"
+                            RowHeight="300"
+                            IsReadOnly="true">
+                    <DataGrid.Columns>
+
+                        <DataGridTemplateColumn Header="Image"
+                                                    Width="1*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Image Source="{Binding Path=Path}"/>
+                                        <TextBlock Text="{Binding Path=Path}" 
+                                                   TextWrapping="Wrap" 
+                                                   VerticalAlignment="Bottom" 
+                                                   Foreground="White" 
+                                                   Background="Black"
+                                                   OpacityMask="Black"></TextBlock>
+                                    </Grid>
+
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Plate"
+                                                    Width="1*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Image Source="{Binding Path=PathToNumber}"/>
+                                        <TextBlock Text="{Binding Path=PathToNumber}" 
+                                                   TextWrapping="Wrap"
+                                                   VerticalAlignment="Bottom" 
+                                                   Foreground="White" 
+                                                   Background="Black"
+                                                   OpacityMask="Black"></TextBlock>
+                                    </Grid>
+
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Binding="{Binding Date, StringFormat=\{0:HH:mm:ss\}}"
+                                                Header="Time"
+                                                FontSize="20"
+                                                Width="1*"
+                                                ></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </materialDesign:Card>
+            
+        </Grid>
+
+        <Button Grid.Column="1" 
+                Width="250" 
+                Height="75"
+                Visibility="Visible"
+                Margin="20, 20, 20, 20" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom"
+                Command="{Binding TestAction}">
+            Click me
+        </Button>
+        
+    </Grid>
+</Window>

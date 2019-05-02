@@ -1,0 +1,29 @@
+﻿@model int
+@using System.Configuration;
+@{
+    ViewBag.Title = "UploadEquipment";
+    int timeFlat = ViewBag.TimeFlag;
+
+    var title = timeFlat == 0 ? "День" : "Ночь";
+
+    var actionUrl = ConfigurationManager.AppSettings["BinarAppApi"] + "api/EquipmentStaffUpload?equipmentId=" + Model + "&timeFlag=" + timeFlat;
+}
+
+<h2>Загрузить изображение</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">@title</div>
+    <div class="panel-body">
+
+        <form method="post"
+              action="@actionUrl"
+              enctype="multipart/form-data">
+            
+            <input type="file" name="myFile" />
+            <input type="submit" value="Upload" />
+        
+        </form>
+
+    </div>
+</div>
+

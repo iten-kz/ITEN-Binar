@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="BinarApp.DesktopClient.Views.Components.IncidentItemComponentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:local="clr-namespace:BinarApp.DesktopClient.Views.Components"
+             xmlns:AppComponents="clr-namespace:BinarApp.DesktopClient.Views.Components"
+             xmlns:res="clr-namespace:BinarApp.DesktopClient.Resources"
+             xmlns:WindowsPresentation="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600" Loaded="UserControl_Loaded">
+    <Grid d:DataContext="{Binding Source={StaticResource Locator}}" Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1.5*" />
+        </Grid.ColumnDefinitions>
+
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.75*" />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Image VerticalAlignment="Center" 
+                       HorizontalAlignment="Center" 
+                       Stretch="UniformToFill" 
+                       Source="{Binding Path=Main.MainPageViewModel.IncidentHistorySelected.ImageSource}" />
+                <!--<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Фото</TextBlock>-->
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <WindowsPresentation:GMapControl
+                            Margin="0 5 0 0"
+                            x:Name="MapControl"
+                            IsManipulationEnabled="True"
+                            MouseWheelZoomEnabled="True" 
+                            IsTextSearchEnabled="True"
+                            MaxZoom="20" Zoom="10" 
+                            ShowTileGridLines="False">
+                </WindowsPresentation:GMapControl>
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="5 20 20 20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <!--<StackPanel Margin="10">-->
+
+                <TextBlock Foreground="White" FontSize="14" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Text="{x:Static res:Resources.PlateNumberDetail}"></TextBlock>
+                <TextBlock Foreground="White" FontSize="14" Grid.Row="0" Grid.Column="1" Text="{Binding Main.MainPageViewModel.IncidentHistorySelected.CarNumber}"></TextBlock>
+                <!--<TextBox Grid.Row="0" Grid.Column="1" IsEnabled="False" Text="{Binding Main.MainPageViewModel.IncidentSelected.CarNumber}"></TextBox>-->
+
+                <TextBlock Foreground="White" FontSize="14" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Text="{x:Static res:Resources.SpeedDetail}"></TextBlock>
+                <TextBlock Foreground="White" FontSize="14" Grid.Row="1" Grid.Column="1" Text="{Binding Main.MainPageViewModel.IncidentHistorySelected.Speed}"></TextBlock>
+                <!--<TextBox Grid.Row="1" Grid.Column="1" IsEnabled="False" Text="{Binding Main.MainPageViewModel.IncidentSelected.Speed}"></TextBox>-->
+
+                <TextBlock Foreground="White" FontSize="14" FontWeight="Bold" Grid.Row="2" Grid.Column="0" Text="{x:Static res:Resources.Date}" ></TextBlock>
+                <TextBlock Foreground="White" FontSize="14" Grid.Row="2" Grid.Column="1" Text="{Binding Main.MainPageViewModel.IncidentHistorySelected.DateTime, StringFormat='dd.MM.yyyy hh:mm:ss'}"></TextBlock>
+                <!--<TextBox Grid.Row="2" Grid.Column="1" IsEnabled="False" Text="{Binding Main.MainPageViewModel.IncidentSelected.DateTime}"></TextBox>-->
+
+                <TextBlock Foreground="White" FontSize="14" FontWeight="Bold" Grid.Row="3" Grid.Column="0" Text="{x:Static res:Resources.DescriptionDetail}"></TextBlock>
+                <TextBlock Foreground="White" FontSize="14" Grid.Row="3" Grid.Column="1" Text="{Binding Main.MainPageViewModel.IncidentHistorySelected.Description}"></TextBlock>
+                <!--<TextBox Grid.Row="3" Grid.Column="1" IsEnabled="False" Text="{Binding Main.MainPageViewModel.IncidentSelected.Description}"></TextBox>-->
+
+                <!--<TextBlock>Статус</TextBlock>
+                    <ComboBox>
+                        <ComboBoxItem>1</ComboBoxItem>
+                        <ComboBoxItem>2</ComboBoxItem>
+                        <ComboBoxItem>3</ComboBoxItem>
+                    </ComboBox>-->
+
+                <!--<TextBlock>Адрес</TextBlock>
+                    <TextBox Text="{Binding Main.MainPageViewModel.IncidentSelected.CarNumber}"></TextBox>
+
+                    <TextBlock>Описание</TextBlock>
+                    <TextBox Text="{Binding Main.MainPageViewModel.IncidentSelected.CarNumber}"></TextBox>-->
+
+                <!--<Button Margin="0, 30, 0, 0">Подтвердить</Button>-->
+                <!--</StackPanel>-->
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="1" Margin="0 -15 0 0">
+            <AppComponents:HistoryIncidentCollectionComponentView />
+        </Grid>
+
+    </Grid>
+</UserControl>

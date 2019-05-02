@@ -1,0 +1,123 @@
+﻿<UserControl x:Class="BinarApp.DesktopClient.Views.Components.TopNavigationComponentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:local="clr-namespace:BinarApp.DesktopClient.Views.Components"
+             xmlns:res="clr-namespace:BinarApp.DesktopClient.Resources"
+             xmlns:Converters="clr-namespace:BinarApp.DesktopClient.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="70" 
+             d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Converters:BooleanInvertionConverter x:Key="BooleanInvertionConverter"/>
+            <Converters:BoolToVisibleConverter x:Key="BoolToVisibleConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="10" d:DataContext="{Binding Source={StaticResource Locator}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Center" 
+                   FontSize="14" 
+                   FontWeight="Bold"
+                   Text="{Binding Main.PageTitle}"></TextBlock>
+
+        <ComboBox Grid.Column="1" 
+                   Margin="0 0 15 0"
+                   FontSize="14"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Left"  
+                   VerticalAlignment="Center"
+                   ItemsSource="{Binding Main.Languages}"
+                   SelectedValue="{Binding Value, Mode=TwoWay}" 
+                   SelectedItem="{Binding Main.SelectedLanguage}" 
+                   DisplayMemberPath="Name"  />
+
+        <StackPanel Grid.Column="2" Orientation="Horizontal">
+            <Button MinWidth="150" Margin="0, 0, 10, 0" 
+                    Background="#1878BA" 
+                    Foreground="White"
+                    FontSize="16"
+                    Command="{Binding Main.GoToMainPage}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="25" Height="22" Margin="0,0,10,0" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_home}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Text="{x:Static res:Resources.MainButton}"></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button MinWidth="150" 
+                    Margin="0, 0, 10, 0" 
+                    Background="{Binding Main.SearchButtonBackground}" 
+                    Foreground="White"
+                    FontSize="16"
+                    Command="{Binding Main.GoToSearchPage}">
+                <Grid Grid.Column="1" Margin="5 0 0 5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle Grid.Column="0" Width="23" Height="22" Margin="0,5,5,0" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_page_search}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="0 5 0 0" Grid.Column="1" Text="{x:Static res:Resources.SearchButton}"></TextBlock>
+
+                    <Rectangle Visibility="{Binding Main.PlateNumberFound, Converter={StaticResource BoolToVisibleConverter}}" Grid.Column="2" Width="23" Height="22" Margin="15 0 0 0" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_information_circle}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Grid>
+            </Button>
+            <Button MinWidth="170" 
+                    Margin="0, 0, 10, 0" 
+                    Background="{Binding Main.FormButtonBackground}" 
+                    Foreground="White"
+                    FontSize="16"
+                    Command="{Binding Main.GoToFormPage}">
+                <Grid Grid.Column="1" Margin="5 0 0 5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle Grid.Column="0" Width="23" Height="22" Margin="0,5,5,0" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_edit_add}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="0 5 0 0" Grid.Column="1" Text="{x:Static res:Resources.FormButton}"></TextBlock>
+                </Grid>
+            </Button>
+            <Button Foreground="White" 
+                    FontSize="16" 
+                    Background="IndianRed"
+                    MinWidth="150"
+                    Margin="0, 0, 10, 0"
+                    Command="{Binding Main.Logout}" 
+                    Content="{x:Static res:Resources.LogoutButton}"></Button>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

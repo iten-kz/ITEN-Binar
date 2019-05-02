@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarApp.API", "BinarApp.API\BinarApp.API.csproj", "{4B41B5A4-2A81-4618-BF65-32E4D61D057F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarApp.Web", "BinarApp.Web\BinarApp.Web.csproj", "{5FF3FB5D-A009-4750-8654-BAC8EC7EC95F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarApp.DesktopClient", "BinarApp.DesktopClient\BinarApp.DesktopClient.csproj", "{0903B69B-4A26-4465-9F26-8D9E82189A21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarApp.UnitTests", "BinarApp.UnitTests\BinarApp.UnitTests.csproj", "{D4872F70-410A-45B9-8E49-22B170E3169D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarApp.Core", "BinarApp.Core\BinarApp.Core.csproj", "{53BFE0CC-0FE0-482A-808E-F3AC1F73DB8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarApp.DecktopApplication", "BinarApp.DecktopApplication\BinarApp.DecktopApplication.csproj", "{10592F9F-2726-439F-92E0-DEAB4537852B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4B41B5A4-2A81-4618-BF65-32E4D61D057F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B41B5A4-2A81-4618-BF65-32E4D61D057F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B41B5A4-2A81-4618-BF65-32E4D61D057F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B41B5A4-2A81-4618-BF65-32E4D61D057F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FF3FB5D-A009-4750-8654-BAC8EC7EC95F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FF3FB5D-A009-4750-8654-BAC8EC7EC95F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FF3FB5D-A009-4750-8654-BAC8EC7EC95F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FF3FB5D-A009-4750-8654-BAC8EC7EC95F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0903B69B-4A26-4465-9F26-8D9E82189A21}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{0903B69B-4A26-4465-9F26-8D9E82189A21}.Debug|Any CPU.Build.0 = Debug|x86
+		{0903B69B-4A26-4465-9F26-8D9E82189A21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0903B69B-4A26-4465-9F26-8D9E82189A21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4872F70-410A-45B9-8E49-22B170E3169D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4872F70-410A-45B9-8E49-22B170E3169D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4872F70-410A-45B9-8E49-22B170E3169D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4872F70-410A-45B9-8E49-22B170E3169D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53BFE0CC-0FE0-482A-808E-F3AC1F73DB8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53BFE0CC-0FE0-482A-808E-F3AC1F73DB8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53BFE0CC-0FE0-482A-808E-F3AC1F73DB8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53BFE0CC-0FE0-482A-808E-F3AC1F73DB8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10592F9F-2726-439F-92E0-DEAB4537852B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10592F9F-2726-439F-92E0-DEAB4537852B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10592F9F-2726-439F-92E0-DEAB4537852B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10592F9F-2726-439F-92E0-DEAB4537852B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A5D1D50-685D-4533-B549-10E193A1AD46}
+	EndGlobalSection
+EndGlobal

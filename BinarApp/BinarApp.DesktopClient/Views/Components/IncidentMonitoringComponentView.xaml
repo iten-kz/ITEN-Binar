@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="BinarApp.DesktopClient.Views.Components.IncidentMonitoringComponentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BinarApp.DesktopClient.Views.Components"
+             xmlns:Converters="clr-namespace:BinarApp.DesktopClient.Converters"
+             mc:Ignorable="d" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:res="clr-namespace:BinarApp.DesktopClient.Resources"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <Converters:EnableBooleanConverter x:Key="EnableBooleanConverter"/>
+    </UserControl.Resources>
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.13*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" BorderBrush="#FF0E0C0C" BorderThickness="1">
+            <Grid>
+                <Image VerticalAlignment="Center" 
+                       HorizontalAlignment="Center" 
+                       Stretch="UniformToFill" 
+                       Source="{Binding Path=Main.MainPageViewModel.LastIncident.ImageSource}" />
+                
+                <!--<WebBrowser Source="http://192.168.3.200/?action=cam0" />-->
+                <!--<MediaElement Source="http://192.168.3.200/?action=cam0" 
+                          Margin="25"
+                          LoadedBehavior="Play" 
+                          OpacityMask="#FFF3D1D1"  />-->
+
+                <!--<cefSharp:ChromiumWebBrowser Grid.Row="0" Address="{Binding Main.StreamSource}" />-->
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="10, 5, 10, 0">
+
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                <Border Grid.Row="0"
+                        BorderBrush="#1878BA" 
+                        BorderThickness="1 1 0 1" 
+                        CornerRadius="6,0,0,6">
+                    <ToggleButton Width="240" Height="50px"
+                                  Grid.Column="0" HorizontalAlignment="Left"
+                                  Foreground="#1878BA"
+                                  FontSize="16px"
+                                  IsEnabled="{Binding Main.MainModeIsActive}"
+                                  Command="{Binding Main.SwitchMainMode}">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="22" Height="22" Margin="0,0,10,0" Fill="#1878BA">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_transit_car}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <TextBlock Text="{x:Static res:Resources.PatroolButtonText}"></TextBlock>
+                        </StackPanel>
+                    </ToggleButton>
+                </Border>
+
+                <!--<ToggleButton Grid.Column="0" HorizontalAlignment="Left" 
+                                  Width="240" Margin="0, 0, 0, 0" 
+                                  FontSize="16px"
+                                  IsEnabled="{Binding Main.CounterModeIsActive}"
+                                  Command="{Binding Main.SwitchCounterMode}">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="22" Height="22" Margin="0,0,10,0" Fill="LightBlue">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Visual="{StaticResource appbar_arrow_down}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <TextBlock>Встречное движение</TextBlock>
+                    </StackPanel>
+                </ToggleButton>-->
+
+                <Border Grid.Row="0"
+                        BorderBrush="#1878BA" 
+                        BorderThickness="1 1 1 1" 
+                        CornerRadius="0,6,6,0">
+                    <ToggleButton Width="240"
+                                      Grid.Column="0" HorizontalAlignment="Left"
+                                      FontSize="16px"
+                                      Foreground="#1878BA"
+                                      IsEnabled="{Binding Main.NightModeIsActive}"
+                                      Command="{Binding Main.SwitchNightMode}">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="20" Height="22" Margin="0,0,10,0" Fill="#1878BA">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_search}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <TextBlock Text="{x:Static res:Resources.VerificationButtonText}"></TextBlock>
+                        </StackPanel>
+
+                    </ToggleButton>
+                </Border>
+              
+                <!--<ToggleButton Width="250" Margin="0, 0, 10, 0">s</ToggleButton>-->
+            </WrapPanel>
+        </Grid>
+
+    </Grid>
+</UserControl>

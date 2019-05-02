@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="BinarApp.Controls.VideoListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BinarApp.Controls"
+             mc:Ignorable="d" 
+             MinWidth="800"
+             MinHeight="300"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid x:Name="layoutMain">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width ="*" />
+            <ColumnDefinition Width ="3*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBox TextWrapping="Wrap" Background="#F2F2EA"></TextBox>
+        <ListBox Background="{x:Null}">
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+            <ListBoxItem Margin="5" MinHeight="25" BorderBrush="Black" BorderThickness="1" Background="#999">12-49-08.avi</ListBoxItem>
+        </ListBox>
+
+        <Image Name="imgMain"
+            Grid.Column="1"          
+            Stretch="UniformToFill"
+            Margin="5"
+            Source="/Media/Images/binar3.JPG"/>
+
+        <!--<ListBox Grid.Column="0" Grid.Row="0" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBoxItem>10-36-17.avi</ListBoxItem>
+            <ListBoxItem>listbox item 2</ListBoxItem>
+            <ListBoxItem>listbox item 3</ListBoxItem>
+            <ListBoxItem>listbox item 4</ListBoxItem>
+            <ListBoxItem>listbox item 5</ListBoxItem>
+        </ListBox>-->
+
+    </Grid>
+</UserControl>

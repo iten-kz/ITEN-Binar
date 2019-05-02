@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+@using BinarApp.Core.POCO;
+@using System.Configuration;
+
+@(Html.DevExtreme().DataGrid<Fixation>()
+    .ID("fixationContainer")
+    .DataSource(d => d
+        .OData()
+        .Version(4)
+        .Expand("Equipment")
+        .Url(ConfigurationManager.AppSettings["BinarAppApi"] + "/odata/Fixations")
+        .Key("Id"))
+    .ShowBorders(true)
+    .ShowRowLines(true)
+    .Editing(ed => ed
+        .AllowAdding(false)
+        .AllowUpdating(false)
+        .AllowDeleting(false)
+        .Form((f) => f.ColCount(1)))
+    .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.OnClick)
+    )
+    .Paging(p => p.Enabled(true).PageSize(3))
+    .AllowColumnReordering(true)
+    .AllowColumnResizing(true)
+    .Grouping(grouping => grouping.AutoExpandAll(true))
+    .SearchPanel(searchPanel => searchPanel.Visible(true))
+    .GroupPanel(groupPanel => groupPanel.Visible(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
+    .Selection(s => s.Mode(SelectionMode.Multiple))
+    .RemoteOperations(x=> x.GroupPaging(true))
+    .Columns(cols=>
+    {
+        cols.AddFor(col => col.FixationDate).Caption("Дата регистрации нарушения").AllowResizing(true).SortOrder(SortOrder.Desc);
+        cols.AddFor(col => col.GRNZ).Caption("Номер авто").AllowResizing(true);
+        cols.AddFor(col => col.Equipment.Name).Caption("Парковка");
+        cols.Add().Caption("Знак")
+            .CellTemplate(@<text>
+                
+                <% var imgSrc = 'https://auto.today/media/res/1/8/5/2/5/18525.o9wdc0.300.jpg';
+                    var datetime = new Date(data.FixationDate);
+                    var hour = datetime.getHours();
+
+                    if(9 < hour && hour < 20 && data.Equipment.DayImage != null)
+                        imgSrc = 'data:image/png;base64, ' + data.Equipment.DayImage;
+                    else if(data.Equipment.NightImage != null)
+                        imgSrc = 'data:image/png;base64, ' + data.Equipment.NightImage; %>            
+    
+                <div>
+                    <img src="<%= imgSrc %>" alt="" />
+                </div>
+            </text>);
+        
+        cols.AddFor(col => col.Id)
+            .Caption("Файл")
+            .CellTemplate(@<text>
+                <div>
+                    <a href="https://rapidapiapplication.azurewebsites.net/api/FixationFile/<%= value %>">Link</a>
+                </div>
+            </text>);
+    })
+    .MasterDetail(md =>
+    {
+        md.Enabled(true);
+        md.Template(new TemplateName("fixationDetailTemplate"));
+    })
+)
+
+@using (Html.DevExtreme().NamedTemplate("fixationDetailTemplate"))
+{
+    @(Html.DevExtreme().DataGrid<FixationDetail>()
+        .DataSource(ds => ds
+            .OData()
+            .Version(4)
+            .Url(ConfigurationManager.AppSettings["BinarAppApi"] + "/odata/FixationDetails")
+            .Key("Id"))
+        .DataSourceOptions(dso => dso
+            .Filter(new JS("['FixationId', '=', data.Id]")))
+        .ShowBorders(true)
+        .ShowRowLines(true)
+        .Columns(cols =>
+        {
+            cols.AddFor(c => c.Date)
+                .Caption("Время")
+                .Format("HH:mm")
+                .Width(300);
+
+            cols.AddFor(c => c.Image).CellTemplate(@<text>
+                <div>
+                    <img src="data:image/jpeg;charset=utf-8;base64, <%= value %>" alt="" />
+                </div>
+            </text>);
+
+            cols.AddFor(c => c.ImagePlate).CellTemplate(@<text>
+                <div>
+                    <img src="data:image/jpeg;charset=utf-8;base64, <%= value %>" alt="" />
+                </div>
+            </text>);
+        }))
+
+}
