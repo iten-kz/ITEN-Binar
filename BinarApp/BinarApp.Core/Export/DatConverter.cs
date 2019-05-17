@@ -29,7 +29,7 @@ namespace BinarApp.Core.Export
         {
             var eqCode = equipmentCode.Count() == 5 ? 
                 equipmentCode : 
-                "C0001";
+                "I0001";
             
             //var stringHeaderHead = "typed struct _HEADER_DATA{ ";
             //var stringHeaderFooter = " }HEADER_DATA, *PHEADER_DATA";
@@ -71,40 +71,6 @@ namespace BinarApp.Core.Export
 
             Encoding encoding = Encoding.GetEncoding("windows-1251");
 
-            fixationDetails.ForEach(item =>
-            {
-                var btImageFull = Convert.FromBase64String(item.ImageBase64);
-                var btImage = _resizer.Resize(btImageFull);
-                var btImageSizeStr = ConvertLenghtToString(btImage.Length.ToString(), 7, "0");
-                var btImageSize = encoding.GetBytes(btImageSizeStr);
-                bytes.AddRange(btImageSize);
-                bytes.AddRange(btImage);
-
-                var btImagePlateFull = Convert.FromBase64String(item.ImagePlateBase64);
-                var btImagePlate = _resizer.Resize(btImagePlateFull);
-                var btImageSizePlateStr = ConvertLenghtToString(btImagePlate.Length.ToString(), 7, "0");
-                var btImageSizePlate = encoding.GetBytes(btImageSizePlateStr);
-                bytes.AddRange(btImageSizePlate);
-                bytes.AddRange(btImagePlate);
-            });
-
-            fixationDetails.ForEach(item =>
-            {
-                var btImageFull = Convert.FromBase64String(item.ImageBase64);
-                var btImage = _resizer.Resize(btImageFull);
-                var btImageSizeStr = ConvertLenghtToString(btImage.Length.ToString(), 7, "0");
-                var btImageSize = encoding.GetBytes(btImageSizeStr);
-                bytes.AddRange(btImageSize);
-                bytes.AddRange(btImage);
-
-                var btImagePlateFull = Convert.FromBase64String(item.ImagePlateBase64);
-                var btImagePlate = _resizer.Resize(btImagePlateFull);
-                var btImageSizePlateStr = ConvertLenghtToString(btImagePlate.Length.ToString(), 7, "0");
-                var btImageSizePlate = encoding.GetBytes(btImageSizePlateStr);
-                bytes.AddRange(btImageSizePlate);
-                bytes.AddRange(btImagePlate);
-            });
-
             var btImageZnakFull = Convert.FromBase64String(symbolBase64);
             var btImageZnak = _resizer.Resize(btImageZnakFull);
             var btImageZnakSizeStr = ConvertLenghtToString(btImageZnak.Length.ToString(), 7, "0");
@@ -112,6 +78,40 @@ namespace BinarApp.Core.Export
             bytes.AddRange(btImageZnakSize);
             bytes.AddRange(btImageZnak);
 
+            fixationDetails.ForEach(item =>
+            {
+                var btImageFull = Convert.FromBase64String(item.ImageBase64);
+                var btImage = _resizer.Resize(btImageFull);
+                var btImageSizeStr = ConvertLenghtToString(btImage.Length.ToString(), 7, "0");
+                var btImageSize = encoding.GetBytes(btImageSizeStr);
+                bytes.AddRange(btImageSize);
+                bytes.AddRange(btImage);
+
+                var btImagePlateFull = Convert.FromBase64String(item.ImagePlateBase64);
+                var btImagePlate = _resizer.Resize(btImagePlateFull);
+                var btImageSizePlateStr = ConvertLenghtToString(btImagePlate.Length.ToString(), 7, "0");
+                var btImageSizePlate = encoding.GetBytes(btImageSizePlateStr);
+                bytes.AddRange(btImageSizePlate);
+                bytes.AddRange(btImagePlate);
+            });
+
+            fixationDetails.ForEach(item =>
+            {
+                var btImageFull = Convert.FromBase64String(item.ImageBase64);
+                var btImage = _resizer.Resize(btImageFull);
+                var btImageSizeStr = ConvertLenghtToString(btImage.Length.ToString(), 7, "0");
+                var btImageSize = encoding.GetBytes(btImageSizeStr);
+                bytes.AddRange(btImageSize);
+                bytes.AddRange(btImage);
+
+                var btImagePlateFull = Convert.FromBase64String(item.ImagePlateBase64);
+                var btImagePlate = _resizer.Resize(btImagePlateFull);
+                var btImageSizePlateStr = ConvertLenghtToString(btImagePlate.Length.ToString(), 7, "0");
+                var btImageSizePlate = encoding.GetBytes(btImageSizePlateStr);
+                bytes.AddRange(btImageSizePlate);
+                bytes.AddRange(btImagePlate);
+            });
+            
             var btImagePlateZnak1Full = Convert.FromBase64String(symbolBase64);
             var btImagePlateZnak1 = _resizer.Resize(btImagePlateZnak1Full);
             var btImageSizePlateZnak1Str = ConvertLenghtToString(btImagePlateZnak1.Length.ToString(), 7, "0");

@@ -37,7 +37,7 @@
         cols.AddFor(col => col.FixationDate).Caption("Дата регистрации нарушения").AllowResizing(true).SortOrder(SortOrder.Desc);
         cols.AddFor(col => col.GRNZ).Caption("Номер авто").AllowResizing(true);
         cols.AddFor(col => col.Equipment.Name).Caption("Парковка");
-        cols.Add().Caption("Знак")
+        @*cols.Add().Caption("Знак")
             .CellTemplate(@<text>
                 
                 <% var imgSrc = 'https://auto.today/media/res/1/8/5/2/5/18525.o9wdc0.300.jpg';
@@ -52,7 +52,7 @@
                 <div>
                     <img src="<%= imgSrc %>" alt="" />
                 </div>
-            </text>);
+            </text>);*@
         
         cols.AddFor(col => col.Id)
             .Caption("Файл")

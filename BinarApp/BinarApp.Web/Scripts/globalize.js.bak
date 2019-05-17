@@ -1,5 +1,5 @@
 /**
- * Globalize v1.1.1
+ * Globalize v1.4.0
  *
  * http://github.com/jquery/globalize
  *
@@ -7,10 +7,10 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2016-02-04T12:01Z
+ * Date: 2018-07-17T20:38Z
  */
 /*!
- * Globalize v1.1.1 2016-02-04T12:01Z Released under the MIT license
+ * Globalize v1.4.0 2018-07-17T20:38Z Released under the MIT license
  * http://git.io/TrdQbw
  */
 (function( root, factory ) {
@@ -113,6 +113,18 @@ var createError = function( code, message, attributes ) {
 
 
 
+var runtimeStringify = function( args ) {
+	return JSON.stringify( args, function( key, value ) {
+		if ( value && value.runtimeKey ) {
+			return value.runtimeKey;
+		}
+		return value;
+	} );
+};
+
+
+
+
 // Based on http://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript-jquery
 var stringHash = function( str ) {
 	return [].reduce.call( str, function( hash, i ) {
@@ -127,7 +139,7 @@ var stringHash = function( str ) {
 
 var runtimeKey = function( fnName, locale, args, argsStr ) {
 	var hash;
-	argsStr = argsStr || JSON.stringify( args );
+	argsStr = argsStr || runtimeStringify( args );
 	hash = stringHash( fnName + locale + argsStr );
 	return hash > 0 ? "a" + hash : "b" + Math.abs( hash );
 };
@@ -153,11 +165,11 @@ var functionName = function( fn ) {
 
 var runtimeBind = function( args, cldr, fn, runtimeArgs ) {
 
-	var argsStr = JSON.stringify( args ),
+	var argsStr = runtimeStringify( args ),
 		fnName = functionName( fn ),
 		locale = cldr.locale;
 
-	// If name of the function is not available, this is most likely due uglification,
+	// If name of the function is not available, this is most likely due to uglification,
 	// which most likely means we are in production, and runtimeBind here is not necessary.
 	if ( !fnName ) {
 		return fn;
