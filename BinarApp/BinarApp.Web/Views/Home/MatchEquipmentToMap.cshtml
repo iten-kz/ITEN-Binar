@@ -12,6 +12,8 @@
                 .Version(4)
                 .Url(ConfigurationManager.AppSettings["BinarAppApi"] + "/odata/Equipments")
                 .Key("Id"))
+            .DataSourceOptions(dso => dso
+                .Select("Id", "Name", "Description", "Address", "GeoJson"))
             .ShowBorders(true)
             .ShowRowLines(true)
             .OnRowClick("equipmentRowSelected")

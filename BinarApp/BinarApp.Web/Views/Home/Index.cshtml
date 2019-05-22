@@ -12,6 +12,8 @@
         .Expand("Equipment")
         .Url(ConfigurationManager.AppSettings["BinarAppApi"] + "/odata/Fixations")
         .Key("Id"))
+    .DataSourceOptions(dso => dso
+        .Select("FixationDate", "GRNZ", "Equipment.Name", "Id"))
     .ShowBorders(true)
     .ShowRowLines(true)
     .Editing(ed => ed
@@ -23,7 +25,7 @@
         .Visible(true)
         .ApplyFilter(GridApplyFilterMode.OnClick)
     )
-    .Paging(p => p.Enabled(true).PageSize(3))
+    .Paging(p => p.Enabled(true).PageSize(10))
     .AllowColumnReordering(true)
     .AllowColumnResizing(true)
     .Grouping(grouping => grouping.AutoExpandAll(true))
