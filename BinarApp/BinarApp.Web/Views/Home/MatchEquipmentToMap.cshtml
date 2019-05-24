@@ -16,6 +16,8 @@
                 .Select("Id", "Name", "Description", "Address", "GeoJson"))
             .ShowBorders(true)
             .ShowRowLines(true)
+            .HoverStateEnabled(true)
+            .FocusedRowEnabled(true)
             .OnRowClick("equipmentRowSelected")
             .Columns(cols =>
             {
