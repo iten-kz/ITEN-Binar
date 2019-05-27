@@ -45,11 +45,17 @@ namespace BinarApp.DecktopApplication.Models
                 .Select(x => new
                 {
                     x,
-                    DiffLat = x.TopRight.Lat - x.BottomLeft.Lat - e.Latitude,
-                    DiffLng = x.TopRight.Lng - x.BottomLeft.Lng - e.Longitude
+                    DiffLat = x.TopRight.Lat - x.BottomLeft.Lat,
+                    DiffLng = x.TopRight.Lng - x.BottomLeft.Lng
                 });
 
-            var currentPolygon = insidePolygons.OrderBy(x => new { x.DiffLat, x.DiffLng })
+            var currentPolygon = insidePolygons
+                .Select(x => new
+                {
+                    x.x,
+                    Range = Math.Sqrt(Math.Pow(x.DiffLat - e.Latitude, 2) + Math.Pow(x.DiffLng - e.Longitude, 2))
+                })
+                .OrderBy(x => x.Range)
                 .Select(x => x.x)
                 .FirstOrDefault();
 
