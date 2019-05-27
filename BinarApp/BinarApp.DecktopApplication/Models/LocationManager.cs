@@ -45,8 +45,8 @@ namespace BinarApp.DecktopApplication.Models
                 .Select(x => new
                 {
                     x,
-                    DiffLat = x.TopRight.Lat - x.BottomLeft.Lat,
-                    DiffLng = x.TopRight.Lng - x.BottomLeft.Lng
+                    DiffLat = (x.TopRight.Lat - x.BottomLeft.Lat) / 2,
+                    DiffLng = (x.TopRight.Lng - x.BottomLeft.Lng) / 2
                 });
 
             var currentPolygon = insidePolygons
