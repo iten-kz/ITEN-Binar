@@ -39,9 +39,23 @@ namespace BinarApp.DecktopApplication.Models
             if (_equipmentPolygons == null)
                 return;
 
-            var currentPolygon = _equipmentPolygons.FirstOrDefault(x =>
+            var insidePolygons = _equipmentPolygons.Where(x =>
                 (e.Latitude >= x.BottomLeft.Lat && e.Longitude >= x.BottomLeft.Lng)
-                && (e.Latitude <= x.TopRight.Lat && e.Longitude <= x.TopRight.Lng));
+                && (e.Latitude <= x.TopRight.Lat && e.Longitude <= x.TopRight.Lng))
+                .Select(x => new
+                {
+                    x,
+                    DiffLat = x.TopRight.Lat - x.BottomLeft.Lat - e.Latitude,
+                    DiffLng = x.TopRight.Lng - x.BottomLeft.Lng - e.Longitude
+                });
+
+            var currentPolygon = insidePolygons.OrderBy(x => new { x.DiffLat, x.DiffLng })
+                .Select(x => x.x)
+                .FirstOrDefault();
+
+            //var currentPolygon = _equipmentPolygons.FirstOrDefault(x =>
+            //    (e.Latitude >= x.BottomLeft.Lat && e.Longitude >= x.BottomLeft.Lng)
+            //    && (e.Latitude <= x.TopRight.Lat && e.Longitude <= x.TopRight.Lng));
 
             var arg = new LocationEventArg() {GeoCoordinate = e };
 
